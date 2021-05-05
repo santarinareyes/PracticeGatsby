@@ -36,6 +36,9 @@
     "uid": {
       "type": "uid",
       "targetField": "title"
+    },
+    "quantity": {
+      "type": "biginteger"
     }
   }
 }
