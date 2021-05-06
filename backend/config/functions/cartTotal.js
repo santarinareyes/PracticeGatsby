@@ -3,8 +3,8 @@ const shipping_rate = process.env.shipping_rate || 500;
 
 const productsTotal = (cart) => {
   const total = cart.reduce((counter, product) => {
-    return product.quantity * product.price;
-  });
+    return counter + product.quantity * product.price;
+  }, 0);
 
   return total;
 };
@@ -17,8 +17,9 @@ const shippingCost = (cart) => {
 const totalCost = (cart) => {
   const cartCost = productsTotal(cart);
   const shipping = shippingCost(cart);
+  const total = Math.round(cartCost + shipping);
 
-  return cartCost + shipping;
+  return total;
 };
 
 module.exports = {
