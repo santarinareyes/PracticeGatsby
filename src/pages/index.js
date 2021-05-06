@@ -1,5 +1,5 @@
 import * as React from "react"
-import { graphql, Link } from "gatsby"
+import { graphql, Link, navigate } from "gatsby"
 
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
@@ -11,26 +11,51 @@ import Seo from "../components/seo"
 const IndexPage = ({ data, location }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
-  const [modalClicked, setModalClicked] = React.useState(false)
+  // const [modalClicked, setModalClicked] = React.useState(false)
+  // React.useEffect(() => {
+  //   location.state = { newUser: false, signedInUser: false }
+  // }, [])
 
-  const { state = {} } = location
-  const { newUser } = state
-  const { signedInUser } = state
+  let { state = {} } = location
+  if (!state) {
+    state = { newUser: false, signedInUser: false }
+  }
+  let { newUser } = state
+  let { signedInUser } = state
+
+  // const delay = 3
+  // React.useEffect(() => {
+  //   let timer = setTimeout(() => ({ state = {} } = false), delay * 1000)
+
+  //   return () => {
+  //     clearTimeout(timer)
+  //   }
+  // }, [])
 
   return (
     <Layout>
       <Seo title="Home" />
-      {!modalClicked && newUser && (
+      {newUser && (
         <div className="px-8 py-4 text-xl text-center text-white bg-green-500 border-t border-b border-grey-lighter">
-          <button onClick={() => setModalClicked(true)} className="w-full">
+          <button
+            onClick={() => {
+              navigate("/", { state: { newUser: false, signedInUser: false } })
+            }}
+            className="w-full"
+          >
             User created
             <span className="text-xs text-gray-300">{`(Click to close)`}</span>
           </button>
         </div>
       )}
-      {!modalClicked && signedInUser && (
+      {signedInUser && (
         <div className="px-8 py-4 text-xl text-center text-white bg-green-500 border-t border-b border-grey-lighter">
-          <button onClick={() => setModalClicked(true)} className="w-full">
+          <button
+            onClick={() => {
+              navigate("/", { state: { newUser: false, signedInUser: false } })
+            }}
+            className="w-full"
+          >
             User signed in
             <span className="text-xs text-gray-300">{`(Click to close)`}</span>
           </button>

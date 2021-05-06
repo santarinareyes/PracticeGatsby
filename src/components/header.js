@@ -36,59 +36,58 @@ const Header = ({ siteTitle }) => {
         </nav>
 
         <div className="relative inline-flex items-center space-x-3 md:ml-5 lg:justify-end">
-          {getUser().length === 0 && (
+          {getUser().length === 0 ? (
+            <>
+              <Link to="/login">
+                <button className="py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-out hover:text-gray-900">
+                  Sign in
+                </button>
+              </Link>
+              <Link to="/register">
+                <button className="py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-out hover:text-gray-900">
+                  Register
+                </button>
+              </Link>
+            </>
+          ) : (
             <>
               <Link
                 to="/login"
-                className="py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-out hover:text-gray-900"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="/register"
-                className="py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-out hover:text-gray-900"
-              >
-                Register
-              </Link>
-            </>
-          )}
-          {getUser().length !== 0 && (
-            <>
-              <button
                 onClick={() => {
                   localStorage.removeItem("jwt")
                   forceUpdate()
                 }}
-                className="py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-out hover:text-gray-900"
               >
-                Logout
-              </button>
+                <button className="py-2 text-base font-medium leading-6 text-gray-600 whitespace-no-wrap transition duration-150 ease-out hover:text-gray-900">
+                  Sign out
+                </button>
+              </Link>
             </>
           )}
-          <Link to="/cart" className="relative">
-            <svg
-              className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-              />
-            </svg>
-            {countItems() < 10 ? (
-              <span className="absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full -left-1">
+          <Link to="/cart">
+            <div className="relative">
+              <svg
+                className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+              <span
+                className={`absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full ${
+                  countItems() < 10 ? "-left-1" : "-left-2"
+                }`}
+              >
                 {countItems()}
               </span>
-            ) : (
-              <span className="absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full -left-2">
-                {countItems()}
-              </span>
-            )}
+            </div>
           </Link>
         </div>
       </div>

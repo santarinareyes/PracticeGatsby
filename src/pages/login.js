@@ -28,7 +28,7 @@ const Login = () => {
       .post("http://localhost:1337/auth/local", data)
       .then(response => {
         setUser(response.data.jwt)
-        navigate("/", { state: { signedInUser: true } })
+        navigate("/", { state: { newUser: false, signedInUser: true } })
       })
       .catch(err => {
         console.log(err.response)

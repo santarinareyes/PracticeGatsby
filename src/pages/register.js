@@ -60,7 +60,7 @@ const Register = () => {
         .post("http://localhost:1337/auth/local/register", data)
         .then(response => {
           setUser(response.data.jwt)
-          navigate("/", { state: { newUser: true } })
+          navigate("/", { state: { newUser: true, signedInUser: false } })
         })
         .catch(err => {
           console.log(err.response)
