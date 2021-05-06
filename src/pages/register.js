@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Link } from "gatsby"
+import { Link, navigate } from "gatsby"
 import axios from "axios"
 
 import Layout from "../components/layout"
@@ -24,7 +24,6 @@ const Register = () => {
     })
   }
 
-  const [userCreated, setUserCreated] = useState(false)
   const [firstnameErr, setFirstnameErr] = useState(false)
   const [lastnameErr, setLastnameErr] = useState(false)
   const [passwordErr, setPasswordErr] = useState(true)
@@ -61,12 +60,11 @@ const Register = () => {
         .post("http://localhost:1337/auth/local/register", data)
         .then(response => {
           setUser(response.data.jwt)
+          navigate("/", { state: { newUser: true } })
         })
         .catch(err => {
           console.log(err.response)
         })
-
-      setUserCreated(true)
     }
   }
 
@@ -79,16 +77,9 @@ const Register = () => {
           className="container py-20 mx-auto border-grey-lighter"
         >
           <div className="w-5/6 mx-auto rounded shadow lg:w-1/2">
-            {!userCreated && (
-              <div className="px-8 py-4 text-xl text-black bg-white border-t border-b border-grey-lighter">
-                Register
-              </div>
-            )}
-            {userCreated && (
-              <div className="px-8 py-4 text-xl text-white bg-green-500 border-t border-b border-grey-lighter">
-                User created
-              </div>
-            )}
+            <div className="px-8 py-4 text-xl text-black bg-white border-t border-b border-grey-lighter">
+              Register
+            </div>
             <div className="px-8 py-4 bg-white">
               <div className="flex mb-4">
                 <div className="w-1/2 mr-1">

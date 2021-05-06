@@ -8,12 +8,34 @@ import { addToCart } from "../utils/cart"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-const IndexPage = ({ data }) => {
+const IndexPage = ({ data, location }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
+  const [modalClicked, setModalClicked] = React.useState(false)
+
+  const { state = {} } = location
+  const { newUser } = state
+  const { signedInUser } = state
+
   return (
     <Layout>
       <Seo title="Home" />
+      {!modalClicked && newUser && (
+        <div className="px-8 py-4 text-xl text-center text-white bg-green-500 border-t border-b border-grey-lighter">
+          <button onClick={() => setModalClicked(true)} className="w-full">
+            User created
+            <span className="text-xs text-gray-300">{`(Click to close)`}</span>
+          </button>
+        </div>
+      )}
+      {!modalClicked && signedInUser && (
+        <div className="px-8 py-4 text-xl text-center text-white bg-green-500 border-t border-b border-grey-lighter">
+          <button onClick={() => setModalClicked(true)} className="w-full">
+            User signed in
+            <span className="text-xs text-gray-300">{`(Click to close)`}</span>
+          </button>
+        </div>
+      )}
       <section className="container grid grid-cols-2 gap-1 mx-auto mb-20 text-center gap-y-7 lg:grid-cols-3">
         {data.allStrapiProduct.nodes.map(product => (
           <div className="p-1">
