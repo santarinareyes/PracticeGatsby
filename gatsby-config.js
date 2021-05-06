@@ -1,12 +1,29 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Default Starter`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@gatsbyjs`,
+    title: `Richflix`,
+    description: `This is the description in gatsby config`,
+    author: `@richard`,
+    company: `Richard AB`,
   },
   plugins: [
+    {
+      resolve: `gatsby-source-strapi`,
+      options: {
+        apiURL: `http://localhost:1337`,
+        queryLimit: 10000, // Default to 100
+        contentTypes: ["product"],
+        //If using single types place them in this array.
+        // singleTypes: [`home-page`, `contact`],
+        // Possibility to login with a strapi user, when content types are not publically available (optional).
+        // loginData: {
+        //   identifier: "",
+        //   password: "",
+        // },
+      },
+    },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
+    "gatsby-plugin-postcss",
     {
       resolve: `gatsby-source-filesystem`,
       options: {
