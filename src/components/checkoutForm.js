@@ -4,6 +4,24 @@ import axios from "axios"
 
 import { formatPrice } from "../utils/currency"
 
+const CARD_ELEMENT_OPTIONS = {
+  style: {
+    base: {
+      color: "#32325d",
+      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
+      fontSmoothing: "antialiased",
+      fontSize: "16px",
+      "::placeholder": {
+        color: "#aab7c4",
+      },
+    },
+    invalid: {
+      color: "#fa755a",
+      iconColor: "#fa755a",
+    },
+  },
+}
+
 const CheckoutForm = ({ cart }) => {
   console.log(cart)
   const stripe = useStripe()
@@ -43,7 +61,7 @@ const CheckoutForm = ({ cart }) => {
     <div className="w-1/2 mx-auto mb-10 shadow-md">
       <div className="px-10 py-10 bg-white">
         <p>Total: {formatPrice(total)}</p>
-        <CardElement />
+        <CardElement options={CARD_ELEMENT_OPTIONS} />
         <div className="flex mt-10 mb-5">
           {/* <form onSubmit={handleSubmit}> */}
           {/* <h3 className="w-2/5 text-xs font-semibold text-gray-600 uppercase">
