@@ -1,26 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
-import axios from "axios"
-
 import { formatPrice } from "../utils/currency"
-
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      color: "#32325d",
-      fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-      fontSmoothing: "antialiased",
-      fontSize: "16px",
-      "::placeholder": {
-        color: "#aab7c4",
-      },
-    },
-    invalid: {
-      color: "#fa755a",
-      iconColor: "#fa755a",
-    },
-  },
-}
 
 const CheckoutForm = ({ cart }) => {
   console.log(cart)
@@ -29,12 +9,26 @@ const CheckoutForm = ({ cart }) => {
 
   const [token, setToken] = useState(false)
   const [total, setTotal] = useState("loading")
+  const [loading, setLoading] = useState(false)
 
-  const handleSubmit = e => {
-    console.log(e)
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setLoading(true)
+    console.log("SUBMIT", e)
+    const result = await stripe.confirmCardPayment(token, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          name: "Jenny Rosen",
+        },
+      },
+    })
+    console.log("RESULTS", result)
+    setLoading(false)
   }
 
   useEffect(() => {
+    setLoading(true)
     const loadToken = async () => {
       const response = await fetch("http://localhost:1337/orders/payment", {
         method: "POST",
@@ -53,31 +47,33 @@ const CheckoutForm = ({ cart }) => {
       console.log("DATA", data)
       setToken(data.client_secret)
       setTotal(data.amount)
+      setLoading(false)
     }
     loadToken()
   }, [cart])
 
   return token ? (
-    <div className="w-1/2 mx-auto mb-10 shadow-md">
+    <div className="w-full mx-auto mb-10 shadow-md lg:w-1/2">
       <div className="px-10 py-10 bg-white">
-        <p>Total: {formatPrice(total)}</p>
-        <CardElement options={CARD_ELEMENT_OPTIONS} />
-        <div className="flex mt-10 mb-5">
-          {/* <form onSubmit={handleSubmit}> */}
+        <form onSubmit={handleSubmit}>
+          <CardElement className="w-full px-3 py-2 text-gray-800 border rounded appearance-none" />
           {/* <h3 className="w-2/5 text-xs font-semibold text-gray-600 uppercase">
               Product Details
-            </h3>
-            <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
+              </h3>
+              <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
               Quantity
-            </h3>
-            <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
+              </h3>
+              <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
               Price
-            </h3>
-            <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
+              </h3>
+              <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
               Total
             </h3> */}
-          {/* </form> */}
-        </div>
+          <button className="w-full py-3 mt-2 text-sm font-semibold text-white uppercase bg-gray-600 hover:bg-gray-800">
+            Confirm order
+          </button>
+        </form>
+        <p className="mb-0 text-right">Total: {formatPrice(total)}</p>
       </div>
     </div>
   ) : (

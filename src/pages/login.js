@@ -51,7 +51,7 @@ const Login = () => {
               <div className="flex mb-4"></div>
               <div className="mb-4">
                 <label
-                  className="block mb-2 text-sm font-bold text-grey-darker"
+                  className="block mb-2 text-sm font-bold text-gray-800"
                   htmlFor="email"
                 >
                   Email Address
