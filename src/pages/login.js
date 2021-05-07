@@ -38,7 +38,7 @@ const Login = () => {
   return (
     <Layout>
       <Seo title="Cart" />
-      <div className="min-h-screen bg-gray-100 py-28">
+      <div className="min-h-screen py-8 bg-gray-100 lg:py-8">
         <form
           onSubmit={handleSubmit}
           className="container py-20 mx-auto border-grey-lighter"

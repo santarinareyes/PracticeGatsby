@@ -24,7 +24,7 @@ const IndexPage = ({ data, location }) => {
       <Seo title="Home" />
       <div className="pt-24">
         {newUser && (
-          <div className="py-4 pb-8 mb-3 text-xl text-center text-white bg-green-500 border-t border-b border-grey-lighter">
+          <div className="px-8 py-4 mb-3 text-xl text-center text-white bg-green-500 border-t border-b border-grey-lighter">
             <button
               onClick={() => {
                 navigate("/", {
