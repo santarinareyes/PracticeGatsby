@@ -8,10 +8,10 @@ const stripe = loadStripe(
   "pk_test_51Io0YXD6lU6s8HD0tIwNHDBt1BZ7x3eMIhl3uWtLkktUgmXaUQjCHmMLYNkQAjPJOcJ19luoA6DGH7Lceb9p2E4v00TUSj0GAR"
 )
 
-const Checkout = () => {
+const Checkout = ({ cart }) => {
   return (
     <Elements stripe={stripe}>
-      <CheckoutForm />
+      <CheckoutForm cart={cart} />
     </Elements>
   )
 }

@@ -9,7 +9,11 @@ const ProductTemplate = ({ data }) => {
   return (
     <Layout>
       <section className="container mx-auto text-center">
-        <div className="flex justify-center h-screen p-1">
+        <div
+          id={data.strapiProduct.uid}
+          key={data.strapiProduct.uid}
+          className="flex justify-center h-screen p-1"
+        >
           <img
             src={data.strapiProduct.thumbnail.publicURL}
             alt={data.strapiProduct.title}

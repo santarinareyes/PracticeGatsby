@@ -6,16 +6,18 @@ import { countItems } from "../utils/cart"
 import { getUser } from "../utils/showRegister"
 
 const Header = ({ siteTitle }) => {
+  const [, updateState] = React.useState()
+  const forceUpdate = React.useCallback(() => updateState({}), [])
   const [isExpanded, toggleExpansion] = React.useState(false)
 
   return (
     <div className="fixed z-50 w-full text-gray-700 bg-white shadow-md lg:px-8">
-      <nav className="flex flex-wrap items-center justify-between p-6 border-b">
-        <div className="flex items-center flex-shrink-0 mr-6 text-black">
+      <nav className="flex flex-wrap items-center justify-between p-4 border-b">
+        <div className="flex items-center flex-shrink-0 mr-6 text-black transition ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-110">
           <Link to="/">
             <span className="text-xl font-semibold tracking-tight">
               {siteTitle}
-              <span class="text-red-800">.</span>
+              <span className="text-red-800">.</span>
             </span>
           </Link>
         </div>
@@ -80,21 +82,38 @@ const Header = ({ siteTitle }) => {
           </div>
           <div className="mt-2">
             <div className="lg:inline-block">
-              <Link
-                to="/login"
-                className="block mt-4 text-gray-600 transition ease-in-out transform lg:inline-block lg:px-1 hover:text-gray-800 lg:hover:-translate-y-1 lg:hover:scale-110 lg:mt-0 first:border-0"
-              >
-                Sign in
-              </Link>
-              <Link
-                to="/register"
-                className="block mt-4 text-gray-600 transition ease-in-out transform lg:inline-block lg:px-1 hover:text-gray-800 lg:hover:-translate-y-1 lg:hover:scale-110 lg:mt-0 first:border-0"
-              >
-                Register
-              </Link>
+              {getUser().length === 0 ? (
+                <>
+                  <Link
+                    to="/login"
+                    className="block mt-4 text-gray-600 transition ease-in-out transform lg:inline-block lg:px-1 hover:text-gray-800 lg:hover:-translate-y-1 lg:hover:scale-110 lg:mt-0 first:border-0"
+                  >
+                    Sign in
+                  </Link>
+                  <Link
+                    to="/register"
+                    className="block mt-4 text-gray-600 transition ease-in-out transform lg:inline-block lg:px-1 hover:text-gray-800 lg:hover:-translate-y-1 lg:hover:scale-110 lg:mt-0 first:border-0"
+                  >
+                    Register
+                  </Link>{" "}
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="block mt-4 text-gray-600 transition ease-in-out transform lg:inline-block lg:px-1 hover:text-gray-800 lg:hover:-translate-y-1 lg:hover:scale-110 lg:mt-0 first:border-0"
+                    onClick={() => {
+                      localStorage.removeItem("jwt")
+                      forceUpdate()
+                    }}
+                  >
+                    Sign out
+                  </Link>
+                </>
+              )}
             </div>
             <Link to="/cart">
-              <button className="relative hidden leading-none text-center text-gray-600 lg:ml-2 lg:inline-block hover:text-gray-800 lg:mt-0">
+              <button className="relative hidden leading-none text-center text-gray-600 transition ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-110 lg:ml-2 lg:inline-block hover:text-gray-800 lg:mt-0">
                 <svg
                   className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
                   fill="none"

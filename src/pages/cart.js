@@ -52,7 +52,10 @@ const Cart = () => {
               </div>
 
               {cart.map(product => (
-                <div className="flex items-center px-6 py-5 -mx-8 hover:bg-gray-100">
+                <div
+                  key={product.uid}
+                  className="flex items-center px-6 py-5 -mx-8 hover:bg-gray-100"
+                >
                   <div className="flex w-2/5">
                     <div className="w-20">
                       <Link to={uidToURL(product.uid)}>
@@ -173,7 +176,9 @@ const Cart = () => {
               </div>
             </div>
           </div>
-          <div id="checkout-clicked">{checkoutClicked && <Checkout />}</div>
+          <div id="checkout-clicked">
+            {checkoutClicked && <Checkout cart={cart} />}
+          </div>
         </div>
       </div>
     </Layout>
