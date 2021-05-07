@@ -28,7 +28,7 @@ const Cart = () => {
   return (
     <Layout>
       <Seo title="Cart" />
-      <div className="min-h-screen py-10 bg-gray-100">
+      <div className="min-h-screen bg-gray-100 py-28">
         <div className="container mx-auto">
           <div className="flex my-10 shadow-md">
             <div className="w-3/4 px-10 py-10 bg-white">

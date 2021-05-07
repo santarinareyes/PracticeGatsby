@@ -71,7 +71,7 @@ const Register = () => {
   return (
     <Layout>
       <Seo title="Cart" />
-      <div className="min-h-screen bg-gray-100">
+      <div className="min-h-screen bg-gray-100 py-28">
         <form
           onSubmit={handleSubmit}
           className="container py-20 mx-auto border-grey-lighter"
