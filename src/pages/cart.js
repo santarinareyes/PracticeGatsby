@@ -30,8 +30,8 @@ const Cart = () => {
       <Seo title="Cart" />
       <div className="min-h-screen bg-gray-100 py-28">
         <div className="container mx-auto">
-          <div className="flex my-10 shadow-md">
-            <div className="w-3/4 px-10 py-10 bg-white">
+          <div className="flex flex-col my-10 lg:flex-row lg:shadow-md">
+            <div className="w-full px-10 py-10 bg-white shadow-md lg:w-3/4 lg:shadow-none">
               <div className="flex justify-between pb-8 border-b">
                 <h1 className="text-2xl font-semibold">Shopping Cart</h1>
                 <h2 className="text-2xl font-semibold">{`${newCount} Items`}</h2>
@@ -132,7 +132,7 @@ const Cart = () => {
               </button>
             </div>
 
-            <div className="w-1/4 px-8 py-10 bg-white border-l">
+            <div className="w-full px-8 py-10 mt-10 bg-white shadow-md lg:shadow-none lg:mt-0 lg:border-l lg:w-1/4">
               <h1 className="pb-8 text-2xl font-semibold border-b">
                 Order Summary
               </h1>
@@ -155,7 +155,7 @@ const Cart = () => {
                   </span>
                 </div>
               )}
-              <div className="mt-8 border-t">
+              <div className="mt-8 lg:border-t">
                 <div className="flex justify-between py-6 text-sm font-semibold uppercase">
                   <span>Total cost</span>
                   <span>{totalCost()}</span>
