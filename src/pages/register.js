@@ -96,7 +96,7 @@ const Register = () => {
             onSubmit={handleSubmit}
             className="container py-20 mx-auto border-grey-lighter"
           >
-            <div className="w-5/6 mx-auto rounded shadow lg:w-1/2">
+            <div className="w-full mx-auto rounded shadow md:w-5/6 lg:w-1/2">
               <div className="px-8 py-4 text-xl text-black bg-white border-t border-b border-grey-lighter">
                 Register
               </div>
@@ -212,16 +212,19 @@ const Register = () => {
                     </p>
                   )}
                 </div>
-                <div className="flex items-center justify-between mt-8">
+                <div className="flex flex-col items-end justify-between mt-8 sm:items-center sm:flex-row">
+                  <Link
+                    to="/login"
+                    className="mb-3 md:mb-0 hover:text-gray-500"
+                  >
+                    Already have an account?
+                  </Link>
                   <button
                     className="px-4 py-2 font-semibold text-gray-800 bg-transparent border border-gray-500 rounded hover:bg-gray-500 hover:text-white hover:border-transparent"
                     type="submit"
                   >
                     Sign Up
                   </button>
-                  <Link to="/login" className="hover:text-gray-500">
-                    Already have an account?
-                  </Link>
                 </div>
               </div>
             </div>
