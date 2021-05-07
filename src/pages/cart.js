@@ -31,13 +31,13 @@ const Cart = () => {
       <div className="min-h-screen py-20 bg-gray-100 lg:py-18">
         <div className="container mx-auto">
           <div className="flex flex-col my-10 lg:flex-row lg:shadow-md">
-            <div className="w-full px-2 py-10 bg-white shadow-md lg:px-10 lg:w-3/4 lg:shadow-none">
+            <div className="w-full px-6 py-10 bg-white shadow-md lg:px-10 lg:w-3/4 lg:shadow-none">
               <div className="flex justify-between pb-8 border-b">
                 <h1 className="text-2xl font-semibold">Shopping Cart</h1>
                 <h2 className="text-2xl font-semibold">{`${newCount} Items`}</h2>
               </div>
               <div className="flex mt-10 mb-5">
-                <h3 className="w-1/5 text-xs font-semibold text-gray-600 uppercase lg:w-2/5">
+                <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase lg:w-2/5">
                   Product
                 </h3>
                 <h3 className="w-2/5 text-xs font-semibold text-center text-gray-600 uppercase lg:w-1/5">
@@ -68,7 +68,7 @@ const Cart = () => {
                     </div>
                     <div className="flex flex-col justify-between lg:ml-4">
                       <Link to={uidToURL(product.uid)}>
-                        <span className="text-sm font-bold  whitespace-nowrap">
+                        <span className="text-sm font-bold whitespace-nowrap">
                           {product.title}
                         </span>
                       </Link>
