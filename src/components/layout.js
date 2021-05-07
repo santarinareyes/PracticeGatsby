@@ -29,7 +29,7 @@ const Layout = ({ children }) => {
     <>
       <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
       <div>
-        <main className="pt-20">{children}</main>
+        <main className="pt-28">{children}</main>
         <Footer company={data.site.siteMetadata?.company || `Company`} />
       </div>
     </>

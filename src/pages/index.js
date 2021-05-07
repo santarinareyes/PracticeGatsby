@@ -11,10 +11,6 @@ import Seo from "../components/seo"
 const IndexPage = ({ data, location }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
-  // const [modalClicked, setModalClicked] = React.useState(false)
-  // React.useEffect(() => {
-  //   location.state = { newUser: false, signedInUser: false }
-  // }, [])
 
   let { state = {} } = location
   if (!state) {
@@ -22,15 +18,6 @@ const IndexPage = ({ data, location }) => {
   }
   let { newUser } = state
   let { signedInUser } = state
-
-  // const delay = 3
-  // React.useEffect(() => {
-  //   let timer = setTimeout(() => ({ state = {} } = false), delay * 1000)
-
-  //   return () => {
-  //     clearTimeout(timer)
-  //   }
-  // }, [])
 
   return (
     <Layout>
@@ -61,10 +48,14 @@ const IndexPage = ({ data, location }) => {
           </button>
         </div>
       )}
-      <section className="container grid grid-cols-2 gap-1 mx-auto mb-20 text-center gap-y-7 lg:grid-cols-3">
+      <section className="container grid grid-cols-1 gap-1 mx-auto mb-20 text-center gap-y-7 md:grid-cols-2 lg:grid-cols-3">
         {data.allStrapiProduct.nodes.map(product => (
           <div className="p-1">
-            <Link className="relative" to={uidToURL(product.uid)}>
+            <Link
+              key={product.uid}
+              className="relative"
+              to={uidToURL(product.uid)}
+            >
               <div className="absolute flex ml-2 top-2 -left-30">
                 <span className="relative z-30 inline-block px-2 py-0.5 text-xs font-semibold tracking-wide text-white uppercase bg-teal-200 bg-indigo-400 rounded-full">
                   New

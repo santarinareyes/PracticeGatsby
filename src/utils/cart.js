@@ -40,10 +40,14 @@ export const addToCart = (product, qty = 1, deleteAll = false) => {
 export const countItems = () => {
   const cart = getCart()
 
-  let count = 0
-  cart.map(product => {
-    count += product.quantInCart
-  })
+  const count = cart.reduce((counter, product) => {
+    return counter + product.quantInCart
+  }, 0)
+
+  // let count = 0
+  // cart.map(product => {
+  //   count += product.quantInCart
+  // })
 
   return count
 }
@@ -51,17 +55,21 @@ export const countItems = () => {
 export const productsTotal = () => {
   const cart = getCart()
 
-  let cost = 0
-  cart.map(product => {
-    cost += product.quantInCart * product.price
-  })
+  const cost = cart.reduce((counter, product) => {
+    return counter + product.quantInCart * product.price
+  }, 0)
+
+  // let cost = 0
+  // cart.map(product => {
+  //   cost += product.quantInCart * product.price
+  // })
 
   return cost
 }
 
 export const shippingCost = () => {
   const cartCost = productsTotal()
-  return cartCost > free_shipping ? 0 : shipping_rate
+  return cartCost >= free_shipping ? 0 : shipping_rate
 }
 
 export const totalCost = () => {

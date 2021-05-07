@@ -21,6 +21,7 @@ module.exports = {
         // },
       },
     },
+    `gatsby-plugin-smoothscroll`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-image`,
     "gatsby-plugin-postcss",

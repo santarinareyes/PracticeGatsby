@@ -1,5 +1,6 @@
-import React, { useState, useCallback, useEffect } from "react"
+import React, { useState, useCallback } from "react"
 import { Link } from "gatsby"
+import scrollTo from "gatsby-plugin-smoothscroll"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -9,7 +10,6 @@ import {
   getCart,
   addToCart,
   countItems,
-  productsTotal,
   shippingCost,
   totalCost,
   untillFreeShipping,
@@ -17,7 +17,7 @@ import {
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
 
-export default () => {
+const Cart = () => {
   const cart = getCart()
   let [newCount, setNewCount] = useState(countItems())
   const [, updateState] = useState()
@@ -152,23 +152,6 @@ export default () => {
                   </span>
                 </div>
               )}
-              {/* <div className="py-10">
-                    <label
-                      htmlFor="promo"
-                      className="inline-block mb-3 text-sm font-semibold uppercase"
-                    >
-                      Promo Code
-                    </label>
-                    <input
-                      type="text"
-                      id="promo"
-                      placeholder="Enter your code"
-                      className="w-full p-2 text-sm"
-                    />
-                  </div>
-                  <button className="px-5 py-2 text-sm text-white uppercase bg-red-500 hover:bg-red-600">
-                    Apply
-                  </button> */}
               <div className="mt-8 border-t">
                 <div className="flex justify-between py-6 text-sm font-semibold uppercase">
                   <span>Total cost</span>
@@ -177,7 +160,10 @@ export default () => {
                 {!checkoutClicked && newCount > 0 && (
                   <>
                     <button
-                      onClick={() => setCheckoutClicked(true)}
+                      onClick={() => {
+                        setCheckoutClicked(true)
+                        scrollTo("#checkout-clicked")
+                      }}
                       className="w-full py-3 text-sm font-semibold text-white uppercase bg-gray-600 hover:bg-gray-800"
                     >
                       Checkout
@@ -187,9 +173,11 @@ export default () => {
               </div>
             </div>
           </div>
-          {checkoutClicked && <Checkout />}
+          <div id="checkout-clicked">{checkoutClicked && <Checkout />}</div>
         </div>
       </div>
     </Layout>
   )
 }
+
+export default Cart
