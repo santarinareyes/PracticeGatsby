@@ -69,8 +69,130 @@ const CheckoutForm = ({ cart }) => {
               <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
               Total
             </h3> */}
-          <button className="w-full py-3 mt-2 text-sm font-semibold text-white uppercase bg-gray-600 hover:bg-gray-800">
-            Confirm order
+          <button
+            className={`w-full py-3 mt-2 text-sm font-semibold text-white uppercase ${
+              !loading
+                ? "bg-gray-600 hover:bg-gray-800"
+                : "bg-white hover:bg-white"
+            } `}
+          >
+            {!loading ? (
+              <span>Confirm order</span>
+            ) : (
+              <span>
+                <svg
+                  className="h-5 mx-auto"
+                  version="1.1"
+                  id="Layer_1"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0px"
+                  y="0px"
+                  width="24px"
+                  height="30px"
+                  viewBox="0 0 24 30"
+                >
+                  <rect
+                    x="0"
+                    y="10"
+                    width="4"
+                    height="10"
+                    fill="#333"
+                    opacity="0.2"
+                  >
+                    <animate
+                      attributeName="opacity"
+                      attributeType="XML"
+                      values="0.2; 1; .2"
+                      begin="0s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                    <animate
+                      attributeName="height"
+                      attributeType="XML"
+                      values="10; 20; 10"
+                      begin="0s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                    <animate
+                      attributeName="y"
+                      attributeType="XML"
+                      values="10; 5; 10"
+                      begin="0s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                  </rect>
+                  <rect
+                    x="8"
+                    y="10"
+                    width="4"
+                    height="10"
+                    fill="#333"
+                    opacity="0.2"
+                  >
+                    <animate
+                      attributeName="opacity"
+                      attributeType="XML"
+                      values="0.2; 1; .2"
+                      begin="0.15s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                    <animate
+                      attributeName="height"
+                      attributeType="XML"
+                      values="10; 20; 10"
+                      begin="0.15s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                    <animate
+                      attributeName="y"
+                      attributeType="XML"
+                      values="10; 5; 10"
+                      begin="0.15s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                  </rect>
+                  <rect
+                    x="16"
+                    y="10"
+                    width="4"
+                    height="10"
+                    fill="#333"
+                    opacity="0.2"
+                  >
+                    <animate
+                      attributeName="opacity"
+                      attributeType="XML"
+                      values="0.2; 1; .2"
+                      begin="0.3s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                    <animate
+                      attributeName="height"
+                      attributeType="XML"
+                      values="10; 20; 10"
+                      begin="0.3s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                    <animate
+                      attributeName="y"
+                      attributeType="XML"
+                      values="10; 5; 10"
+                      begin="0.3s"
+                      dur="0.6s"
+                      repeatCount="indefinite"
+                    ></animate>
+                  </rect>
+                </svg>
+              </span>
+            )}
           </button>
         </form>
         <p className="mb-0 text-right">Total: {formatPrice(total)}</p>
