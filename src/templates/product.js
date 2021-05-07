@@ -11,16 +11,16 @@ const ProductTemplate = ({ data }) => {
 
   return (
     <Layout>
-      <section className="container pt-24 mx-auto text-center">
+      <section className="container min-h-screen pt-24 mx-auto text-center">
         <div
           id={data.strapiProduct.uid}
           key={data.strapiProduct.uid}
-          className="relative flex flex-col justify-center min-h-screen p-1 lg:flex-row"
+          className="relative flex flex-col justify-center p-1 h-1/2 lg:flex-row"
         >
           <img
             src={data.strapiProduct.thumbnail.publicURL}
             alt={data.strapiProduct.title}
-            className="object-cover object-center rounded-lg shadow-md h-96 lg:w-2/3 lg:h-3/4"
+            className="object-cover object-center rounded-lg shadow-md h-96 lg:w-2/3"
           />
           <div className="absolute flex ml-2 left-1 top-3">
             <span className="relative z-30 inline-block px-2 py-0.5 text-xs font-semibold tracking-wide text-white uppercase bg-teal-200 bg-indigo-400 rounded-full">
