@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react"
+import React, { useState, useCallback, useContext } from "react"
 import { Link } from "gatsby"
 import scrollTo from "gatsby-plugin-smoothscroll"
 
@@ -17,11 +17,16 @@ import {
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
 
+import { CartCtx } from "../ctx/CartCtx"
+
 const Cart = () => {
   const cart = getCart()
   let [newCount, setNewCount] = useState(countItems())
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
+
+  const test = useContext(CartCtx)
+  console.log("CARTCTX", test)
 
   const [checkoutClicked, setCheckoutClicked] = useState(false)
 
