@@ -49,7 +49,9 @@ const Header = ({ siteTitle }) => {
                     cart.length < 10 ? "-left-1" : "-left-2"
                   }`}
                 >
-                  {cart.length}
+                  {cart.reduce((counter, product) => {
+                    return counter + product.quantInCart
+                  }, 0)}
                 </span>
               )}
             </button>

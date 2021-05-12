@@ -6,12 +6,7 @@ import Layout from "../components/layout"
 import Seo from "../components/seo"
 import Checkout from "../components/checkout"
 
-import {
-  countItems,
-  shippingCost,
-  totalCost,
-  untillFreeShipping,
-} from "../utils/cart"
+import { shippingCost, totalCost, untillFreeShipping } from "../utils/cart"
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
 
@@ -19,7 +14,11 @@ import { CartCtx } from "../ctx/CartCtx"
 
 const Cart = () => {
   const { cart, addToCart } = useContext(CartCtx)
-  let [newCount, setNewCount] = useState(countItems())
+  let [newCount, setNewCount] = useState(
+    cart.reduce((counter, product) => {
+      return counter + product.quantInCart
+    }, 0)
+  )
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
 
