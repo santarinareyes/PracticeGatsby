@@ -5,7 +5,7 @@ import { graphql, Link, navigate } from "gatsby"
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
 
-import { CartCtx } from "../ctx/CartCtx"
+import CartCtx from "../ctx/CartCtx"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"

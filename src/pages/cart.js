@@ -10,7 +10,7 @@ import { shippingCost, totalCost, untillFreeShipping } from "../utils/cart"
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
 
-import { CartCtx } from "../ctx/CartCtx"
+import CartCtx from "../ctx/CartCtx"
 
 const Cart = () => {
   const { cart, addToCart } = useContext(CartCtx)
@@ -23,6 +23,8 @@ const Cart = () => {
   const forceUpdate = useCallback(() => updateState({}), [])
 
   const [checkoutClicked, setCheckoutClicked] = useState(false)
+  console.log("RENDER, CART", cart)
+  console.log("RENDER, ATC", addToCart)
 
   return (
     <Layout>

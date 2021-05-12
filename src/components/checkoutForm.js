@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from "react"
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { formatPrice } from "../utils/currency"
 
-import { CartCtx } from "../ctx/CartCtx"
+import CartCtx from "../ctx/CartCtx"
 
 const CheckoutForm = () => {
   const stripe = useStripe()

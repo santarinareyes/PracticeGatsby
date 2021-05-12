@@ -6,7 +6,7 @@ import { Link } from "gatsby"
 import { countItems } from "../utils/cart"
 import { getUser } from "../utils/showRegister"
 
-import { CartCtx } from "../ctx/CartCtx"
+import CartCtx from "../ctx/CartCtx"
 
 const Header = ({ siteTitle }) => {
   const [, updateState] = useState()

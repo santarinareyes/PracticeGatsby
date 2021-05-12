@@ -2,7 +2,7 @@ import React, { createContext, useState } from "react"
 
 import { getCart, setCart } from "../utils/cart"
 
-export const CartCtx = createContext(null)
+const CartCtx = createContext(getCart())
 
 const CartCtxProvider = ({ children }) => {
   const [cart, setCartCtx] = useState(getCart())
@@ -14,8 +14,6 @@ const CartCtxProvider = ({ children }) => {
   }
 
   const addToCart = (product, qty = 1, deleteAll = false) => {
-    const cart = getCart()
-
     const indexOfProduct = cart.findIndex(
       alreadyInCart => alreadyInCart.strapiId === product.strapiId
     )
@@ -32,6 +30,7 @@ const CartCtxProvider = ({ children }) => {
     }
 
     updateCart(cart)
+    console.log("cart", cart)
   }
 
   return (
@@ -39,4 +38,5 @@ const CartCtxProvider = ({ children }) => {
   )
 }
 
-export default CartCtxProvider
+export default CartCtx
+export { CartCtxProvider }

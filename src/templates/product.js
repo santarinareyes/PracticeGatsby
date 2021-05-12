@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import Layout from "../components/Layout"
 import { graphql } from "gatsby"
 
-import { CartCtx } from "../ctx/CartCtx"
+import CartCtx from "../ctx/CartCtx"
 
 import { formatPrice } from "../utils/currency"
 
