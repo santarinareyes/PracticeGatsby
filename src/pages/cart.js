@@ -23,8 +23,6 @@ const Cart = () => {
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
 
-  const test = useContext(CartCtx)
-
   const [checkoutClicked, setCheckoutClicked] = useState(false)
 
   return (
@@ -74,9 +72,6 @@ const Cart = () => {
                           {product.title}
                         </span>
                       </Link>
-                      {/* <span className="text-xs text-red-500">
-                        {product.description}
-                      </span> */}
                       <button
                         className="self-start text-xs font-semibold text-gray-500 cursor-pointer hover:text-red-500"
                         onClick={() => {

@@ -14,6 +14,8 @@ const CartCtxProvider = ({ children }) => {
   }
 
   const addToCart = (product, qty = 1, deleteAll = false) => {
+    const cart = getCart()
+
     const indexOfProduct = cart.findIndex(
       alreadyInCart => alreadyInCart.strapiId === product.strapiId
     )

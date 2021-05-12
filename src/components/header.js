@@ -1,14 +1,19 @@
 import * as React from "react"
+import { useContext, useState, useCallback } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
 import { countItems } from "../utils/cart"
 import { getUser } from "../utils/showRegister"
 
+import { CartCtx } from "../ctx/CartCtx"
+
 const Header = ({ siteTitle }) => {
-  const [, updateState] = React.useState()
-  const forceUpdate = React.useCallback(() => updateState({}), [])
-  const [isExpanded, toggleExpansion] = React.useState(false)
+  const [, updateState] = useState()
+  const forceUpdate = useCallback(() => updateState({}), [])
+  const [isExpanded, toggleExpansion] = useState(false)
+
+  const { cart } = useContext(CartCtx)
 
   return (
     <div className="fixed z-50 w-full text-gray-700 bg-white shadow-md lg:px-8">
@@ -38,13 +43,15 @@ const Header = ({ siteTitle }) => {
                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                 />
               </svg>
-              <span
-                className={`absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full ${
-                  countItems() < 10 ? "-left-1" : "-left-2"
-                }`}
-              >
-                {countItems()}
-              </span>
+              {cart && cart.length !== 0 && (
+                <span
+                  className={`absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full ${
+                    cart.length < 10 ? "-left-1" : "-left-2"
+                  }`}
+                >
+                  {cart.length}
+                </span>
+              )}
             </button>
           </Link>
           <button

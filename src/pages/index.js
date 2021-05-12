@@ -1,9 +1,11 @@
 import * as React from "react"
+import { useContext } from "react"
 import { graphql, Link, navigate } from "gatsby"
 
 import { formatPrice } from "../utils/currency"
 import { uidToURL } from "../utils/uidToURL"
-import { setCart } from "../utils/cart"
+
+import { CartCtx } from "../ctx/CartCtx"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
@@ -11,6 +13,8 @@ import Seo from "../components/seo"
 const IndexPage = ({ data, location }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
+
+  const { addToCart } = useContext(CartCtx)
 
   let { state = {} } = location
   if (!state) {
@@ -83,7 +87,7 @@ const IndexPage = ({ data, location }) => {
                     <span className="relative inline-flex w-full md:w-auto">
                       <button
                         onClick={() => {
-                          setCart(product)
+                          addToCart(product)
                           forceUpdate()
                         }}
                         className="inline-flex items-center justify-center w-full px-4 py-2 font-semibold leading-6 text-white bg-gray-800 border border-transparent md:w-auto hover:bg-green-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
