@@ -7,8 +7,6 @@ import Seo from "../components/seo"
 import Checkout from "../components/checkout"
 
 import {
-  getCart,
-  addToCart,
   countItems,
   shippingCost,
   totalCost,
@@ -20,13 +18,12 @@ import { uidToURL } from "../utils/uidToURL"
 import { CartCtx } from "../ctx/CartCtx"
 
 const Cart = () => {
-  const cart = getCart()
+  const { cart, addToCart } = useContext(CartCtx)
   let [newCount, setNewCount] = useState(countItems())
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
 
   const test = useContext(CartCtx)
-  console.log("CARTCTX", test)
 
   const [checkoutClicked, setCheckoutClicked] = useState(false)
 

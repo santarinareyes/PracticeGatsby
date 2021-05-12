@@ -16,27 +16,6 @@ export const getCart = () => {
   return []
 }
 
-export const addToCart = (product, qty = 1, deleteAll = false) => {
-  const cart = getCart()
-
-  const indexOfProduct = cart.findIndex(
-    alreadyInCart => alreadyInCart.strapiId === product.strapiId
-  )
-
-  if (indexOfProduct !== -1) {
-    cart[indexOfProduct].quantInCart += parseInt(qty)
-
-    if (cart[indexOfProduct].quantInCart === 0 || deleteAll) {
-      cart.splice(indexOfProduct, 1)
-    }
-  } else {
-    product.quantInCart = parseInt(qty)
-    cart.push(product)
-  }
-
-  setCart(cart)
-}
-
 export const countItems = () => {
   const cart = getCart()
 

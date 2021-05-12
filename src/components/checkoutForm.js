@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { formatPrice } from "../utils/currency"
 
-const CheckoutForm = ({ cart }) => {
-  console.log(cart)
+import { CartCtx } from "../ctx/CartCtx"
+
+const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
+
+  const { cart } = useContext(CartCtx)
 
   const [token, setToken] = useState(false)
   const [total, setTotal] = useState("loading")
@@ -14,7 +17,6 @@ const CheckoutForm = ({ cart }) => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
-    console.log("SUBMIT", e)
     const result = await stripe.confirmCardPayment(token, {
       payment_method: {
         card: elements.getElement(CardElement),

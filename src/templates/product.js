@@ -1,13 +1,16 @@
-import React from "react"
+import React, { useContext } from "react"
 import Layout from "../components/Layout"
 import { graphql } from "gatsby"
 
+import { CartCtx } from "../ctx/CartCtx"
+
 import { formatPrice } from "../utils/currency"
-import { addToCart } from "../utils/cart"
 
 const ProductTemplate = ({ data }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
+
+  const { addToCart } = useContext(CartCtx)
 
   return (
     <Layout>
