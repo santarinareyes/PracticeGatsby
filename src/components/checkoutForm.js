@@ -3,13 +3,14 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { formatPrice } from "../utils/currency"
 
 import CartCtx from "../ctx/CartCtx"
+import Custom from "./Custom.css"
 
 const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
 
   const { cart } = useContext(CartCtx)
-  console.log(cart)
+  console.log("CheckoutForm, Cart", cart)
 
   const [token, setToken] = useState(false)
   const [total, setTotal] = useState("loading")
@@ -52,8 +53,10 @@ const CheckoutForm = () => {
   }, [cart])
 
   const [shipping, setShipping] = useState({})
-  const handleChange = e => {
-    console.log(e)
+  const handleChange = ({ target }) => {
+    const { name, value } = target
+    setShipping({ ...shipping, [name]: value })
+    console.log(shipping)
   }
 
   return token ? (
@@ -62,18 +65,21 @@ const CheckoutForm = () => {
         <form onSubmit={handleSubmit}>
           <input
             id="fullname"
+            name="fullname"
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Fullname"
             onChange={handleChange}
           />
           <input
             id="address"
+            name="address"
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Address"
             onChange={handleChange}
           />
           <input
             id="country"
+            name="country"
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Country"
             onChange={handleChange}
@@ -81,13 +87,17 @@ const CheckoutForm = () => {
           <div className="flex">
             <input
               id="city"
+              name="city"
               className="w-full px-3 py-2 mb-2 mr-1 text-gray-800 border rounded appearance-none "
               placeholder="City"
               onChange={handleChange}
             />
             <input
               id="zip"
-              className="w-full px-3 py-2 mb-2 ml-1 text-gray-800 border rounded appearance-none "
+              name="zip"
+              type="number"
+              style={Custom}
+              className="w-full px-3 py-2 mb-2 ml-1 text-gray-800 border rounded appearance-none"
               placeholder="Zip"
               onChange={handleChange}
             />

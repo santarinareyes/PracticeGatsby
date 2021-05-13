@@ -22,7 +22,7 @@ const Cart = () => {
         return counter + product.quantInCart
       }, 0)
     )
-  }, [])
+  }, [cart])
 
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
