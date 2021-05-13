@@ -6,7 +6,6 @@ const CartCtx = createContext(getCart())
 
 const CartCtxProvider = ({ children }) => {
   const [cart, setCartCtx] = useState(getCart())
-  console.log("CARTCTX", cart)
 
   const updateCart = cart => {
     setCart(cart)
@@ -30,7 +29,6 @@ const CartCtxProvider = ({ children }) => {
     }
 
     updateCart(cart)
-    console.log("cart", cart)
   }
 
   return (

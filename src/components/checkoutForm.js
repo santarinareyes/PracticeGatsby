@@ -9,6 +9,7 @@ const CheckoutForm = () => {
   const elements = useElements()
 
   const { cart } = useContext(CartCtx)
+  console.log(cart)
 
   const [token, setToken] = useState(false)
   const [total, setTotal] = useState("loading")
@@ -17,15 +18,11 @@ const CheckoutForm = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
-    const result = await stripe.confirmCardPayment(token, {
+    await stripe.confirmCardPayment(token, {
       payment_method: {
         card: elements.getElement(CardElement),
-        billing_details: {
-          name: "Jenny Rosen",
-        },
       },
     })
-    console.log("RESULTS", result)
     setLoading(false)
   }
 

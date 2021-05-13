@@ -23,8 +23,6 @@ const Cart = () => {
   const forceUpdate = useCallback(() => updateState({}), [])
 
   const [checkoutClicked, setCheckoutClicked] = useState(false)
-  console.log("RENDER, CART", cart)
-  console.log("RENDER, ATC", addToCart)
 
   return (
     <Layout>
@@ -76,6 +74,7 @@ const Cart = () => {
                       <button
                         className="self-start text-xs font-semibold text-gray-500 cursor-pointer hover:text-red-500"
                         onClick={() => {
+                          setCheckoutClicked(false)
                           addToCart(product, 0, true)
                           setNewCount((newCount -= product.quantInCart))
                           forceUpdate()
@@ -90,6 +89,7 @@ const Cart = () => {
                       className="w-3 text-gray-600 cursor-pointer fill-current"
                       viewBox="0 0 448 512"
                       onClick={() => {
+                        setCheckoutClicked(false)
                         addToCart(product, -1)
                         setNewCount((newCount -= 1))
                         forceUpdate()
@@ -108,6 +108,7 @@ const Cart = () => {
                       className="w-3 text-gray-600 cursor-pointer fill-current"
                       viewBox="0 0 448 512"
                       onClick={() => {
+                        setCheckoutClicked(false)
                         addToCart(product, 1)
                         setNewCount((newCount += 1))
                         forceUpdate()
