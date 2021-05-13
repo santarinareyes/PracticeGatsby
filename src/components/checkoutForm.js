@@ -51,23 +51,48 @@ const CheckoutForm = () => {
     loadToken()
   }, [cart])
 
+  const [shipping, setShipping] = useState({})
+  const handleChange = e => {
+    console.log(e)
+  }
+
   return token ? (
     <div className="w-full mx-auto mb-10 shadow-md lg:w-1/2">
       <div className="px-10 py-10 bg-white">
         <form onSubmit={handleSubmit}>
-          <CardElement className="w-full px-3 py-2 text-gray-800 border rounded appearance-none" />
-          {/* <h3 className="w-2/5 text-xs font-semibold text-gray-600 uppercase">
-              Product Details
-              </h3>
-              <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
-              Quantity
-              </h3>
-              <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
-              Price
-              </h3>
-              <h3 className="w-1/5 text-xs font-semibold text-center text-gray-600 uppercase">
-              Total
-            </h3> */}
+          <input
+            id="fullname"
+            className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
+            placeholder="Fullname"
+            onChange={handleChange}
+          />
+          <input
+            id="address"
+            className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
+            placeholder="Address"
+            onChange={handleChange}
+          />
+          <input
+            id="country"
+            className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
+            placeholder="Country"
+            onChange={handleChange}
+          />
+          <div className="flex">
+            <input
+              id="city"
+              className="w-full px-3 py-2 mb-2 mr-1 text-gray-800 border rounded appearance-none "
+              placeholder="City"
+              onChange={handleChange}
+            />
+            <input
+              id="zip"
+              className="w-full px-3 py-2 mb-2 ml-1 text-gray-800 border rounded appearance-none "
+              placeholder="Zip"
+              onChange={handleChange}
+            />
+          </div>
+          <CardElement className="w-full px-3 py-3 mb-2 text-gray-800 border rounded appearance-none" />
           <button
             className={`w-full py-3 mt-2 text-sm font-semibold text-white uppercase ${
               !loading

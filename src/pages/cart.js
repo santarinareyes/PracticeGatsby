@@ -14,11 +14,16 @@ import CartCtx from "../ctx/CartCtx"
 
 const Cart = () => {
   const { cart, addToCart } = useContext(CartCtx)
-  let [newCount, setNewCount] = useState(
-    cart.reduce((counter, product) => {
-      return counter + product.quantInCart
-    }, 0)
-  )
+  let [newCount, setNewCount] = useState(0)
+
+  React.useEffect(() => {
+    setNewCount(
+      cart.reduce((counter, product) => {
+        return counter + product.quantInCart
+      }, 0)
+    )
+  }, [])
+
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
 
@@ -50,81 +55,82 @@ const Cart = () => {
                 </h3>
               </div>
 
-              {cart.map(product => (
-                <div
-                  key={product.uid}
-                  className="flex items-center py-5 hover:bg-gray-100"
-                >
-                  <div className="flex flex-col w-1/5 lg:w-2/5 text-start lg:flex-row">
-                    <div className="w-20">
-                      <Link to={uidToURL(product.uid)}>
-                        <img
-                          className="w-24 h-24 mb-0"
-                          src={product.thumbnail.publicURL}
-                          alt=""
-                        />
-                      </Link>
+              {cart &&
+                cart.map(product => (
+                  <div
+                    key={product.uid}
+                    className="flex items-center py-5 hover:bg-gray-100"
+                  >
+                    <div className="flex flex-col w-1/5 lg:w-2/5 text-start lg:flex-row">
+                      <div className="w-20">
+                        <Link to={uidToURL(product.uid)}>
+                          <img
+                            className="w-24 h-24 mb-0"
+                            src={product.thumbnail.publicURL}
+                            alt=""
+                          />
+                        </Link>
+                      </div>
+                      <div className="flex flex-col justify-between lg:ml-4">
+                        <Link to={uidToURL(product.uid)}>
+                          <span className="text-sm font-bold whitespace-nowrap">
+                            {product.title}
+                          </span>
+                        </Link>
+                        <button
+                          className="self-start text-xs font-semibold text-gray-500 cursor-pointer hover:text-red-500"
+                          onClick={() => {
+                            setCheckoutClicked(false)
+                            addToCart(product, 0, true)
+                            setNewCount((newCount -= product.quantInCart))
+                            forceUpdate()
+                          }}
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </div>
-                    <div className="flex flex-col justify-between lg:ml-4">
-                      <Link to={uidToURL(product.uid)}>
-                        <span className="text-sm font-bold whitespace-nowrap">
-                          {product.title}
-                        </span>
-                      </Link>
-                      <button
-                        className="self-start text-xs font-semibold text-gray-500 cursor-pointer hover:text-red-500"
+                    <div className="flex justify-center w-2/5 lg:w-1/5">
+                      <svg
+                        className="w-3 text-gray-600 cursor-pointer fill-current"
+                        viewBox="0 0 448 512"
                         onClick={() => {
                           setCheckoutClicked(false)
-                          addToCart(product, 0, true)
-                          setNewCount((newCount -= product.quantInCart))
+                          addToCart(product, -1)
+                          setNewCount((newCount -= 1))
                           forceUpdate()
                         }}
                       >
-                        Remove
-                      </button>
+                        <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                      </svg>
+
+                      <input
+                        className="w-8 mx-2 text-center border"
+                        type="number"
+                        value={product.quantInCart}
+                      />
+
+                      <svg
+                        className="w-3 text-gray-600 cursor-pointer fill-current"
+                        viewBox="0 0 448 512"
+                        onClick={() => {
+                          setCheckoutClicked(false)
+                          addToCart(product, 1)
+                          setNewCount((newCount += 1))
+                          forceUpdate()
+                        }}
+                      >
+                        <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
+                      </svg>
                     </div>
+                    <span className="w-1/5 text-sm font-semibold text-center">
+                      {formatPrice(product.price)}
+                    </span>
+                    <span className="w-1/5 text-sm font-semibold text-center">
+                      {formatPrice(product.price, product.quantInCart)}
+                    </span>
                   </div>
-                  <div className="flex justify-center w-2/5 lg:w-1/5">
-                    <svg
-                      className="w-3 text-gray-600 cursor-pointer fill-current"
-                      viewBox="0 0 448 512"
-                      onClick={() => {
-                        setCheckoutClicked(false)
-                        addToCart(product, -1)
-                        setNewCount((newCount -= 1))
-                        forceUpdate()
-                      }}
-                    >
-                      <path d="M416 208H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h384c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                    </svg>
-
-                    <input
-                      className="w-8 mx-2 text-center border"
-                      type="number"
-                      value={product.quantInCart}
-                    />
-
-                    <svg
-                      className="w-3 text-gray-600 cursor-pointer fill-current"
-                      viewBox="0 0 448 512"
-                      onClick={() => {
-                        setCheckoutClicked(false)
-                        addToCart(product, 1)
-                        setNewCount((newCount += 1))
-                        forceUpdate()
-                      }}
-                    >
-                      <path d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z" />
-                    </svg>
-                  </div>
-                  <span className="w-1/5 text-sm font-semibold text-center">
-                    {formatPrice(product.price)}
-                  </span>
-                  <span className="w-1/5 text-sm font-semibold text-center">
-                    {formatPrice(product.price, product.quantInCart)}
-                  </span>
-                </div>
-              ))}
+                ))}
 
               <button className="flex mt-10 text-sm font-semibold hover:text-gray-600">
                 <Link to="/">Continue Shopping</Link>
