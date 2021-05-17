@@ -96,7 +96,6 @@ const CheckoutForm = () => {
               id="zip"
               name="zip"
               type="number"
-              style={Custom}
               className="w-full px-3 py-2 mb-2 ml-1 text-gray-800 border rounded appearance-none"
               placeholder="Zip"
               onChange={handleChange}
