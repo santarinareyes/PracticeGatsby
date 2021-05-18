@@ -8,6 +8,8 @@ module.exports = {
     extend: {
       zIndex: ["hover"],
       appearance: ["hover", "focus"],
+      opacity: ["disabled"],
+      backgroundColor: ["disabled"],
     },
   },
   plugins: [],

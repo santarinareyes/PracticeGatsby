@@ -52,12 +52,33 @@ const CheckoutForm = () => {
     loadToken()
   }, [cart])
 
-  const [shipping, setShipping] = useState({})
+  const [shipping, setShipping] = useState({
+    shipping_name: "",
+    phone: "",
+    shipping_address: "",
+    shipping_country: "",
+    shipping_city: "",
+    shipping_zip: "",
+  })
 
   const handleChange = ({ target }) => {
     const { name, value } = target
     setShipping({ ...shipping, [name]: value })
-    console.log(shipping)
+  }
+
+  const inputValidator = () => {
+    if (
+      shipping.shipping_name === "" ||
+      shipping.phone === "" ||
+      shipping.shipping_address === "" ||
+      shipping.shipping_country === "" ||
+      shipping.shipping_city === "" ||
+      shipping.shipping_zip === ""
+    ) {
+      return true
+    }
+
+    return false
   }
 
   return token ? (
@@ -66,29 +87,33 @@ const CheckoutForm = () => {
         <form onSubmit={handleSubmit}>
           <input
             id="fullname"
-            name="fullname"
+            name="shipping_name"
+            value={shipping.shipping_name}
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Fullname"
             onChange={handleChange}
           />
           <input
-            id="number"
-            name="number"
+            id="phone"
+            name="phone"
+            value={shipping.phone}
             type="number"
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
-            placeholder="Number"
+            placeholder="Phone"
             onChange={handleChange}
           />
           <input
             id="address"
-            name="address"
+            name="shipping_address"
+            value={shipping.shipping_address}
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Address"
             onChange={handleChange}
           />
           <input
             id="country"
-            name="country"
+            name="shipping_country"
+            value={shipping.shipping_country}
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Country"
             onChange={handleChange}
@@ -96,14 +121,16 @@ const CheckoutForm = () => {
           <div className="flex">
             <input
               id="city"
-              name="city"
+              name="shipping_city"
+              value={shipping.shipping_city}
               className="w-full px-3 py-2 mb-2 mr-1 text-gray-800 border rounded appearance-none "
               placeholder="City"
               onChange={handleChange}
             />
             <input
               id="zip"
-              name="zip"
+              name="shipping_zip"
+              value={shipping.shipping_zip}
               type="number"
               className="w-full px-3 py-2 mb-2 ml-1 text-gray-800 border rounded appearance-none"
               placeholder="Zip"
@@ -112,7 +139,10 @@ const CheckoutForm = () => {
           </div>
           <CardElement className="w-full px-3 py-3 mb-2 text-gray-800 border rounded appearance-none" />
           <button
-            className={`w-full py-3 mt-2 text-sm font-semibold text-white uppercase ${
+            disabled={inputValidator()}
+            className={`${
+              inputValidator() ? "cursor-not-allowed" : ""
+            } disabled:opacity-50 disabled:bg-gray-800 w-full py-3 mt-2 text-sm font-semibold text-white uppercase ${
               !loading
                 ? "bg-gray-600 hover:bg-gray-800"
                 : "bg-white hover:bg-white"
