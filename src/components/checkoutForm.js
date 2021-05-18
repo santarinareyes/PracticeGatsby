@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useContext } from "react"
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
+import axios from "axios"
+
 import { formatPrice } from "../utils/currency"
 
 import CartCtx from "../ctx/CartCtx"
@@ -15,17 +17,6 @@ const CheckoutForm = () => {
   const [token, setToken] = useState(false)
   const [total, setTotal] = useState("loading")
   const [loading, setLoading] = useState(false)
-
-  const handleSubmit = async e => {
-    e.preventDefault()
-    setLoading(true)
-    await stripe.confirmCardPayment(token, {
-      payment_method: {
-        card: elements.getElement(CardElement),
-      },
-    })
-    setLoading(false)
-  }
 
   useEffect(() => {
     setLoading(true)
@@ -79,6 +70,36 @@ const CheckoutForm = () => {
     }
 
     return false
+  }
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+    setLoading(true)
+    await stripe.confirmCardPayment(token, {
+      payment_method: {
+        card: elements.getElement(CardElement),
+      },
+    })
+    setLoading(false)
+
+    const orderData = {
+      shipping_name: shipping.shipping_name,
+      phone: shipping.phone,
+      shipping_address: shipping.shipping_address,
+      shipping_country: shipping.shipping_country,
+      shipping_city: shipping.shipping_city,
+      shipping_zip: shipping.shipping_zip,
+    }
+
+    const newOrder = async () => {
+      await axios
+        .post("http://localhost:1337/orders", orderData)
+        .then(response => {})
+        .catch(err => {
+          console.log(err.response)
+        })
+    }
+    newOrder()
   }
 
   return token ? (
