@@ -3,7 +3,7 @@ import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js"
 import { formatPrice } from "../utils/currency"
 
 import CartCtx from "../ctx/CartCtx"
-import Custom from "./Custom.css"
+import "./Custom.css"
 
 const CheckoutForm = () => {
   const stripe = useStripe()
@@ -53,6 +53,7 @@ const CheckoutForm = () => {
   }, [cart])
 
   const [shipping, setShipping] = useState({})
+
   const handleChange = ({ target }) => {
     const { name, value } = target
     setShipping({ ...shipping, [name]: value })
@@ -68,6 +69,14 @@ const CheckoutForm = () => {
             name="fullname"
             className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
             placeholder="Fullname"
+            onChange={handleChange}
+          />
+          <input
+            id="number"
+            name="number"
+            type="number"
+            className="w-full px-3 py-2 mb-2 text-gray-800 border rounded appearance-none "
+            placeholder="Number"
             onChange={handleChange}
           />
           <input
