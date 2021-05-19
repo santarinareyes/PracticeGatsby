@@ -33,7 +33,7 @@ const CheckoutForm = () => {
       })
 
       const data = await response.json()
-      console.log("DATA", data)
+      // console.log("DATA", data)
       setToken(data.client_secret)
       setTotal(data.amount)
       setLoading(false)
