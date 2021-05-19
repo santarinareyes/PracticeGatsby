@@ -28,7 +28,7 @@
       "model": "user",
       "via": "orders"
     },
-    "quantity": {
+    "products_quant": {
       "type": "json"
     },
     "shipping_name": {

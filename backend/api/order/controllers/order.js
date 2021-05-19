@@ -2,6 +2,7 @@
 const stripe = require("stripe")(
   "sk_test_51Io0YXD6lU6s8HD0CDXWnmRbLESyPCrzL3GN1UPnJCx9sd7Q4sns8rPXRZkyknxPJ3JQhiWIGOVWAOTGVq6PEYJT00OeSSlKPS"
 );
+const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -52,5 +53,68 @@ module.exports = {
     } catch (err) {
       return { error: err.raw.message };
     }
+  },
+
+  create: async (ctx) => {
+    const {
+      shipping_name,
+      phone,
+      shipping_address,
+      shipping_country,
+      shipping_city,
+      shipping_zip,
+      cart,
+    } = ctx.request.body;
+
+    console.log("CREATE.cart", cart);
+
+    let products = [];
+    let products_quant = [];
+    let validatedCart = [];
+
+    // Validate product
+    await Promise.all(
+      cart.map(async (product) => {
+        const checkProduct = await strapi.services.product.findOne({
+          id: product.strapiId,
+        });
+
+        if (checkProduct) {
+          products_quant.push({
+            id: product.strapiId,
+            quantity: product.quantInCart,
+          });
+
+          products.push(checkProduct);
+
+          validatedCart.push({
+            ...checkProduct,
+            ...{ quantity: product.quantInCart },
+          });
+        }
+        console.log("VALI", checkProduct);
+        return checkProduct;
+      })
+    );
+
+    let total_price =
+      strapi.config.functions.cartTotal.totalCost(validatedCart);
+
+    const entry = {
+      shipping_name,
+      phone,
+      shipping_address,
+      shipping_country,
+      shipping_city,
+      shipping_zip,
+
+      products,
+      products_quant,
+
+      total_price,
+    };
+
+    const entity = await strapi.services.order.create(entry);
+    return sanitizeEntity(entity, { model: strapi.models.order });
   },
 };
