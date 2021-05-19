@@ -10,9 +10,7 @@ import "./Custom.css"
 const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
-
   const { cart } = useContext(CartCtx)
-  console.log("CheckoutForm, Cart", cart)
 
   const [token, setToken] = useState(false)
   const [total, setTotal] = useState("loading")
@@ -89,6 +87,7 @@ const CheckoutForm = () => {
       shipping_country: shipping.shipping_country,
       shipping_city: shipping.shipping_city,
       shipping_zip: shipping.shipping_zip,
+      cart: cart,
     }
 
     const newOrder = async () => {
