@@ -73,7 +73,7 @@ const CheckoutForm = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     setLoading(true)
-    await stripe.confirmCardPayment(token, {
+    const response = await stripe.confirmCardPayment(token, {
       payment_method: {
         card: elements.getElement(CardElement),
       },
@@ -88,6 +88,7 @@ const CheckoutForm = () => {
       shipping_city: shipping.shipping_city,
       shipping_zip: shipping.shipping_zip,
       cart: cart,
+      paymentIntent: response.paymentIntent,
     }
 
     const newOrder = async () => {
