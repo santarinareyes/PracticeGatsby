@@ -45,6 +45,9 @@
     },
     "shipping_zip": {
       "type": "string"
+    },
+    "check_paymentIntent": {
+      "type": "string"
     }
   }
 }

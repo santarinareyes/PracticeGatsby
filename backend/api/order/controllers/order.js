@@ -70,10 +70,28 @@ module.exports = {
 
     // Retrieve a PaymentIntent
     // https://stripe.com/docs/api/payment_intents/retrieve?lang=node
-    const getPaymentIntent = await stripe.paymentIntents.retrieve(
-      paymentIntent.id
-    );
-    console.log("getPaymentIntent", getPaymentIntent);
+    try {
+      const getPaymentIntent = await stripe.paymentIntents.retrieve(
+        paymentIntent.id
+      );
+      if (getPaymentIntent.status !== "succeeded") {
+        throw { message: "test" };
+      }
+    } catch (err) {
+      return { error: err.message };
+    }
+
+    // If paymentIntent was created on failure
+    const checkPaymentIntent = await strapi.services.order.find({
+      check_paymentIntent: paymentIntent.id,
+    });
+
+    if (checkPaymentIntent && checkPaymentIntent.length > 0) {
+      ctx.response.status = 400;
+      return { message: "Payment intent already used" };
+    }
+
+    const check_paymentIntent = paymentIntent.id;
 
     let products = [];
     let products_quant = [];
@@ -119,6 +137,7 @@ module.exports = {
       products_quant,
 
       total_price,
+      check_paymentIntent,
     };
 
     const entity = await strapi.services.order.create(entry);
