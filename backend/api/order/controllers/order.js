@@ -70,13 +70,12 @@ module.exports = {
 
     // Retrieve a PaymentIntent
     // https://stripe.com/docs/api/payment_intents/retrieve?lang=node
+    let getPaymentIntent;
     try {
-      const getPaymentIntent = await stripe.paymentIntents.retrieve(
-        paymentIntent.id
-      );
-      if (getPaymentIntent.status !== "succeeded") {
-        throw { message: "test" };
-      }
+      getPaymentIntent = await stripe.paymentIntents.retrieve(paymentIntent.id);
+      // if (getPaymentIntent.status !== "succeeded") {
+      //   throw { message: "test" };
+      // }
     } catch (err) {
       return { error: err.message };
     }
@@ -124,6 +123,11 @@ module.exports = {
 
     let total_price =
       strapi.config.functions.cartTotal.totalCost(validatedCart);
+
+    if (getPaymentIntent.amount !== total_price) {
+      ctx.response.status = 400;
+      return { message: "Something went wrong with the payment" };
+    }
 
     const entry = {
       shipping_name,
