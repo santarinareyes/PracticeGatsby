@@ -2,7 +2,7 @@
 const stripe = require("stripe")(
   "sk_test_51Io0YXD6lU6s8HD0CDXWnmRbLESyPCrzL3GN1UPnJCx9sd7Q4sns8rPXRZkyknxPJ3JQhiWIGOVWAOTGVq6PEYJT00OeSSlKPS"
 );
-const { parseMultipartData, sanitizeEntity } = require("strapi-utils");
+const { sanitizeEntity } = require("strapi-utils");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -20,16 +20,16 @@ module.exports = {
     await Promise.all(
       cart.map(async (product) => {
         const validatedProduct = await strapi.services.product.findOne({
-          id: product.id,
+          id: product.strapiId,
         });
 
-        console.log("validated product: ", validatedProduct);
+        // console.log("validated product: ", validatedProduct);
 
         if (validatedProduct) {
           validatedProduct.quantity = product.quantity;
           validatedCart.push(validatedProduct);
           cartReceipt.push({
-            id: product.id,
+            id: product.strapiId,
             quantity: product.quantity,
           });
         }
@@ -38,9 +38,9 @@ module.exports = {
       })
     );
 
-    console.log("VALI-CART: ", validatedCart);
+    // console.log("VALI-CART: ", validatedCart);
     total = strapi.config.functions.cartTotal.totalCost(validatedCart);
-    console.log("TOTAL: ", total);
+    // console.log("TOTAL: ", total);
 
     try {
       const paymentIntent = await stripe.paymentIntents.create({
@@ -49,6 +49,7 @@ module.exports = {
         metadata: { cart: JSON.stringify(cartReceipt) },
       });
 
+      // console.log("paymentIntent", paymentIntent);
       return paymentIntent;
     } catch (err) {
       return { error: err.raw.message };
@@ -64,9 +65,15 @@ module.exports = {
       shipping_city,
       shipping_zip,
       cart,
+      paymentIntent,
     } = ctx.request.body;
 
-    console.log("CREATE.cart", cart);
+    // Retrieve a PaymentIntent
+    // https://stripe.com/docs/api/payment_intents/retrieve?lang=node
+    const getPaymentIntent = await stripe.paymentIntents.retrieve(
+      paymentIntent.id
+    );
+    console.log("getPaymentIntent", getPaymentIntent);
 
     let products = [];
     let products_quant = [];
@@ -92,7 +99,7 @@ module.exports = {
             ...{ quantity: product.quantInCart },
           });
         }
-        console.log("VALI", checkProduct);
+        // console.log("VALI", checkProduct);
         return checkProduct;
       })
     );
