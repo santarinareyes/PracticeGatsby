@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useContext } from "react"
+import React, { useState, useCallback, useContext, useEffect } from "react"
 import { Link } from "gatsby"
 import scrollTo from "gatsby-plugin-smoothscroll"
 
@@ -13,10 +13,11 @@ import { uidToURL } from "../utils/uidToURL"
 import CartCtx from "../ctx/CartCtx"
 
 const Cart = () => {
+  const [checkoutClicked, setCheckoutClicked] = useState(false)
   const { cart, addToCart } = useContext(CartCtx)
   let [newCount, setNewCount] = useState(0)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setNewCount(
       cart.reduce((counter, product) => {
         return counter + product.quantInCart
@@ -26,8 +27,6 @@ const Cart = () => {
 
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
-
-  const [checkoutClicked, setCheckoutClicked] = useState(false)
 
   return (
     <Layout>

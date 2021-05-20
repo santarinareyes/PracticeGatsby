@@ -31,8 +31,14 @@ const CartCtxProvider = ({ children }) => {
     updateCart(cart)
   }
 
+  const clearCart = () => {
+    updateCart([])
+  }
+
   return (
-    <CartCtx.Provider value={{ cart, addToCart }}>{children}</CartCtx.Provider>
+    <CartCtx.Provider value={{ cart, addToCart, clearCart }}>
+      {children}
+    </CartCtx.Provider>
   )
 }
 
