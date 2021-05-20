@@ -1,5 +1,5 @@
 import * as React from "react"
-import { useContext, useState, useCallback } from "react"
+import { useContext, useState, useCallback, useEffect } from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
@@ -8,12 +8,16 @@ import { getUser } from "../utils/showRegister"
 
 import CartCtx from "../ctx/CartCtx"
 
-const Header = ({ siteTitle }) => {
+const Header = ({ siteTitle, test }) => {
   const [, updateState] = useState()
   const forceUpdate = useCallback(() => updateState({}), [])
   const [isExpanded, toggleExpansion] = useState(false)
 
   const { cart } = useContext(CartCtx)
+
+  useEffect(() => {
+    toggleExpansion(false)
+  }, [test])
 
   return (
     <div className="fixed z-50 w-full text-gray-700 bg-white shadow-md lg:px-8">

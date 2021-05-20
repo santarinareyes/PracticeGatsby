@@ -25,11 +25,24 @@ const Layout = ({ children }) => {
     }
   `)
 
+  let [test, setTest] = React.useState(0)
+
   return (
     <>
-      <Header siteTitle={data.site.siteMetadata?.title || `Title`} />
+      <Header
+        test={test}
+        siteTitle={data.site.siteMetadata?.title || `Title`}
+      />
       <div>
-        <main className="pt-18">{children}</main>
+        <main
+          onClick={() => {
+            setTest((test += 1))
+            console.log(test)
+          }}
+          className="pt-18"
+        >
+          {children}
+        </main>
         <Footer company={data.site.siteMetadata?.company || `Company`} />
       </div>
     </>
