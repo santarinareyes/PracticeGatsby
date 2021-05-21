@@ -9,6 +9,7 @@ import { SetUser } from "../utils/showRegister"
 
 const Login = () => {
   const [loginDetails, setLoginDetails] = React.useState({})
+  const [err, setErr] = React.useState(false)
 
   const data = {
     identifier: loginDetails.email,
@@ -30,8 +31,8 @@ const Login = () => {
         SetUser(response.data.jwt)
         navigate("/", { state: { newUser: false, signedInUser: true } })
       })
-      .catch(err => {
-        console.log(err.response)
+      .catch(() => {
+        setErr(true)
       })
   }
 
@@ -80,6 +81,9 @@ const Login = () => {
                   placeholder="Your password"
                   onChange={handleChange}
                 />
+                {err && (
+                  <p className="text-red-500">Email or password is incorrect</p>
+                )}
               </div>
               <div className="flex flex-col items-end justify-between mt-8 sm:items-center sm:flex-row">
                 <Link

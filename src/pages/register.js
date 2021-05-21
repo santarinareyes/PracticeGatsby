@@ -27,6 +27,7 @@ const Register = () => {
 
   const [firstnameErr, setFirstnameErr] = React.useState(false)
   const [lastnameErr, setLastnameErr] = React.useState(false)
+  const [emailErr, setEmailErr] = React.useState(false)
   const [passwordErr, setPasswordErr] = React.useState(true)
   const [confPasswordErr, setConfPasswordErr] = React.useState(false)
   const [loading, setLoading] = React.useState(false)
@@ -42,6 +43,7 @@ const Register = () => {
       ? setLastnameErr(true)
       : setLastnameErr(false)
 
+    userInfo.email.length < 1 ? setEmailErr(true) : setEmailErr(false)
     userInfo.password.length < 6 ? setPasswordErr(true) : setPasswordErr(false)
 
     userInfo.password !== userInfo.confirm_password ||
@@ -163,6 +165,11 @@ const Register = () => {
                     onChange={handleChange}
                     value={userInfo.email}
                   />
+                  {emailErr && (
+                    <p className="mt-1 mb-0 text-xs text-red-500">
+                      Email cannot be empty
+                    </p>
+                  )}
                 </div>
                 <div className="mb-4">
                   <label

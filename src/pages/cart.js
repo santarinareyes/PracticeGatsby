@@ -107,6 +107,7 @@ const Cart = () => {
                         className="w-8 mx-2 text-center border"
                         type="number"
                         value={product.quantInCart}
+                        onChange={() => {}}
                       />
 
                       <svg
