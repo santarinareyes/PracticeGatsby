@@ -1,11 +1,11 @@
-import React, { createContext, useState } from "react"
+import * as React from "react"
 
 import { getCart, setCart } from "../utils/cart"
 
-const CartCtx = createContext(getCart())
+const CartCtx = React.createContext(getCart())
 
 const CartCtxProvider = ({ children }) => {
-  const [cart, setCartCtx] = useState(getCart())
+  const [cart, setCartCtx] = React.useState(getCart())
 
   const updateCart = cart => {
     setCart(cart)

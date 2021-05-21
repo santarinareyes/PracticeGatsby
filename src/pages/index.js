@@ -1,5 +1,4 @@
 import * as React from "react"
-import { useContext } from "react"
 import { graphql, Link, navigate } from "gatsby"
 
 import { formatPrice } from "../utils/currency"
@@ -14,7 +13,7 @@ const IndexPage = ({ data, location }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
 
-  const { addToCart } = useContext(CartCtx)
+  const { addToCart } = React.useContext(CartCtx)
 
   let { state = {} } = location
   if (!state) {

@@ -25,20 +25,22 @@ const Layout = ({ children }) => {
     }
   `)
 
-  let [test, setTest] = React.useState(0)
+  let [clicked, setClicked] = React.useState(0)
+  const handleClick = () => {
+    setClicked((clicked += 1))
+  }
 
   return (
     <>
       <Header
-        test={test}
+        clicked={clicked}
         siteTitle={data.site.siteMetadata?.title || `Title`}
       />
       <div>
         <main
-          onClick={() => {
-            setTest((test += 1))
-            console.log(test)
-          }}
+          role="presentation"
+          onClick={handleClick}
+          onKeyDown={handleClick}
           className="pt-18"
         >
           {children}

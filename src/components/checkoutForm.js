@@ -73,6 +73,7 @@ const CheckoutForm = () => {
   const handleChange = ({ target }) => {
     const { name, value } = target
     setShipping({ ...shipping, [name]: value })
+    console.log(shipping)
   }
 
   const inputValidator = () => {
@@ -139,6 +140,8 @@ const CheckoutForm = () => {
             <span
               className="absolute px-2 text-white bg-gray-800 rounded cursor-pointer -right-4 -top-4"
               onClick={closeModal}
+              onKeyDown={closeModal}
+              role="presentation"
             >
               X
             </span>

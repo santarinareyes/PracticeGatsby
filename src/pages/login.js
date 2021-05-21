@@ -1,14 +1,14 @@
-import React, { useState } from "react"
+import * as React from "react"
 import { Link, navigate } from "gatsby"
 import axios from "axios"
 
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-import { setUser } from "../utils/showRegister"
+import { SetUser } from "../utils/showRegister"
 
 const Login = () => {
-  const [loginDetails, setLoginDetails] = useState({})
+  const [loginDetails, setLoginDetails] = React.useState({})
 
   const data = {
     identifier: loginDetails.email,
@@ -27,7 +27,7 @@ const Login = () => {
     await axios
       .post("http://localhost:1337/auth/local", data)
       .then(response => {
-        setUser(response.data.jwt)
+        SetUser(response.data.jwt)
         navigate("/", { state: { newUser: false, signedInUser: true } })
       })
       .catch(err => {
@@ -37,7 +37,7 @@ const Login = () => {
 
   return (
     <Layout>
-      <Seo title="Cart" />
+      <Seo title="Login" />
       <div className="min-h-screen py-8 bg-gray-100 lg:py-8">
         <form
           onSubmit={handleSubmit}

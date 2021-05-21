@@ -1,8 +1,9 @@
-import React, { useContext } from "react"
-import Layout from "../components/Layout"
+import * as React from "react"
+import Layout from "../components/layout"
 import { graphql } from "gatsby"
 
 import CartCtx from "../ctx/CartCtx"
+import Seo from "../components/seo"
 
 import { formatPrice } from "../utils/currency"
 
@@ -10,10 +11,11 @@ const ProductTemplate = ({ data }) => {
   const [, updateState] = React.useState()
   const forceUpdate = React.useCallback(() => updateState({}), [])
 
-  const { addToCart } = useContext(CartCtx)
+  const { addToCart } = React.useContext(CartCtx)
 
   return (
     <Layout>
+      <Seo title={data.strapiProduct.title} />
       <section className="container min-h-screen pt-24 mx-auto text-center">
         <div
           id={data.strapiProduct.uid}

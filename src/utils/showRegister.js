@@ -1,8 +1,8 @@
-export const setUser = user => {
+export const SetUser = user => {
   localStorage.setItem("jwt", user)
 }
 
-export const getUser = () => {
+export const GetUser = () => {
   try {
     const jwt = localStorage.getItem("jwt")
     if (jwt) {
@@ -12,6 +12,6 @@ export const getUser = () => {
   return []
 }
 
-export const logoutUser = () => {
+export const LogoutUser = () => {
   localStorage.removeItem("jwt")
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import * as React from "react"
 import { Link, navigate } from "gatsby"
 import axios from "axios"
 import scrollTo from "gatsby-plugin-smoothscroll"
@@ -6,10 +6,10 @@ import scrollTo from "gatsby-plugin-smoothscroll"
 import Layout from "../components/layout"
 import Seo from "../components/seo"
 
-import { setUser } from "../utils/showRegister"
+import { SetUser } from "../utils/showRegister"
 
 const Register = () => {
-  const [userInfo, setUserInfo] = useState({
+  const [userInfo, setUserInfo] = React.useState({
     firstname: "",
     lastname: "",
     email: "",
@@ -25,11 +25,11 @@ const Register = () => {
     })
   }
 
-  const [firstnameErr, setFirstnameErr] = useState(false)
-  const [lastnameErr, setLastnameErr] = useState(false)
-  const [passwordErr, setPasswordErr] = useState(true)
-  const [confPasswordErr, setConfPasswordErr] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [firstnameErr, setFirstnameErr] = React.useState(false)
+  const [lastnameErr, setLastnameErr] = React.useState(false)
+  const [passwordErr, setPasswordErr] = React.useState(true)
+  const [confPasswordErr, setConfPasswordErr] = React.useState(false)
+  const [loading, setLoading] = React.useState(false)
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -71,7 +71,7 @@ const Register = () => {
         await axios
           .post("http://localhost:1337/auth/local/register", data)
           .then(response => {
-            setUser(response.data.jwt)
+            SetUser(response.data.jwt)
             navigate("/", { state: { newUser: true, signedInUser: false } })
           })
           .catch(err => {
@@ -89,7 +89,7 @@ const Register = () => {
 
   return (
     <Layout>
-      <Seo title="Cart" />
+      <Seo title="Register" />
       <div id="register" className="min-h-screen py-8 bg-gray-100 lg:py-22">
         {!loading && (
           <form
