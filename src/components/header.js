@@ -29,23 +29,23 @@ const Header = ({ siteTitle, clicked }) => {
           </Link>
         </div>
         <div className="flex lg:hidden">
-          {cart && cart.length !== 0 && (
-            <Link to="/cart">
-              <button className="relative mr-2 leading-none text-center text-gray-600 lg:hidden lg:ml-2 hover:text-gray-800 lg:mt-0">
-                <svg
-                  className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                  />
-                </svg>
+          <Link to="/cart">
+            <button className="relative mr-2 leading-none text-center text-gray-600 lg:hidden lg:ml-2 hover:text-gray-800 lg:mt-0">
+              <svg
+                className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                />
+              </svg>
+              {cart && cart.length !== 0 && (
                 <span
                   className={`absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full ${
                     cart.length < 10 ? "-left-1" : "-left-2"
@@ -55,9 +55,9 @@ const Header = ({ siteTitle, clicked }) => {
                     return counter + product.quantInCart
                   }, 0)}
                 </span>
-              </button>
-            </Link>
-          )}
+              )}
+            </button>
+          </Link>
           <button
             onClick={() => toggleExpansion(!isExpanded)}
             className="flex items-center px-3 py-2 text-gray-600 border border-gray-600 rounded hover:text-gray-800 hover:border-gray-800"
@@ -117,23 +117,23 @@ const Header = ({ siteTitle, clicked }) => {
                 </>
               )}
             </div>
-            {cart && cart.length !== 0 && (
-              <Link to="/cart">
-                <button className="relative hidden leading-none text-center text-gray-600 transition ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-110 lg:ml-2 lg:inline-block hover:text-gray-800 lg:mt-0">
-                  <svg
-                    className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
-                    />
-                  </svg>
+            <Link to="/cart">
+              <button className="relative hidden leading-none text-center text-gray-600 transition ease-in-out transform lg:hover:-translate-y-1 lg:hover:scale-110 lg:ml-2 lg:inline-block hover:text-gray-800 lg:mt-0">
+                <svg
+                  className="inline-flex w-6 h-6 my-2 text-gray-600 hover:text-gray-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+                  />
+                </svg>
+                {cart && cart.length !== 0 && (
                   <span
                     className={`absolute bottom-0 p-0 px-1 text-xs font-bold text-gray-600 bg-white border rounded-full ${
                       cart.length < 10 ? "-left-1" : "-left-2"
@@ -143,9 +143,9 @@ const Header = ({ siteTitle, clicked }) => {
                       return counter + product.quantInCart
                     }, 0)}
                   </span>
-                </button>
-              </Link>
-            )}
+                )}
+              </button>
+            </Link>
           </div>
         </div>
       </nav>
